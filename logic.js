@@ -23,7 +23,7 @@ const getTodayDay = dayNumber =>{
             return "Day";
         }
     }
-const getTodayMonth = monthNumber =>{
+const getTodayMonthLetters = monthNumber =>{
     switch(monthNumber){
         case 0:
             return "Jen";
@@ -53,6 +53,9 @@ const getTodayMonth = monthNumber =>{
             return "Month";
         }
     }
+const getTodayMonthNum = monthNumber =>{
+        return monthNumber + 1;
+    }
 
 let clock= new Date();
 console.log(clock);
@@ -60,10 +63,10 @@ console.log(clock);
 //.getDay() returns current day of the week as a number (0-6) starting from Sunday.
 const todayDay = getTodayDay(clock.getDay());
 //.getMonth() returns current Month of as a number (0-11) starting from Jenuary.
-const todayMonth = getTodayMonth(clock.getMonth())
+const todayMonth = getTodayMonthNum(clock.getMonth())
 const todayDate = clock.getDate();
 const todayYear = clock.getFullYear();
 
-console.log(`${todayDay} ${todayMonth} ${todayDate} ${todayYear}`);
-dateEl.textContent = `${todayDay} ${todayMonth} ${todayDate} ${todayYear}`;
+console.log(`${todayDay} ${todayMonth}/${todayDate}/${todayYear}`);
+dateEl.textContent = `${todayDay} ${todayMonth<10 ? ("0"+todayMonth) : todayMonth}/${todayDate<10 ? ('0'+todayDate) : todayDate}/${todayYear}`;
 

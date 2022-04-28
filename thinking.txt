@@ -1,0 +1,1 @@
+review the 3 functions declaration ways.
