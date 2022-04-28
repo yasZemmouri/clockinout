@@ -1,5 +1,7 @@
 "use strict";
-
+//DOM???
+const dateEl= document.getElementById('date');
+console.log(dateEl);
 //Functions Declaration
 const getTodayDay = dayNumber =>{
     switch(dayNumber){
@@ -63,4 +65,5 @@ const todayDate = clock.getDate();
 const todayYear = clock.getFullYear();
 
 console.log(`${todayDay} ${todayMonth} ${todayDate} ${todayYear}`);
+dateEl.textContent = `${todayDay} ${todayMonth} ${todayDate} ${todayYear}`;
 
