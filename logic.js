@@ -1,7 +1,7 @@
 "use strict";
 //DOM???
 const dateEl= document.getElementById('date');
-console.log(dateEl);
+const timeEl = document.getElementById('time');
 //Functions Declaration
 const getTodayDay = dayNumber =>{
     switch(dayNumber){
@@ -56,6 +56,8 @@ const getTodayMonthLetters = monthNumber =>{
 const getTodayMonthNum = monthNumber =>{
         return monthNumber + 1;
     }
+//if number has 1 digit add 0 to the left.
+const twoDigits = number =>(number<10)?('0'+number):number;
 
 let clock= new Date();
 console.log(clock);
@@ -66,7 +68,12 @@ const todayDay = getTodayDay(clock.getDay());
 const todayMonth = getTodayMonthNum(clock.getMonth())
 const todayDate = clock.getDate();
 const todayYear = clock.getFullYear();
+const nowHours = clock.getHours();
+const nowMinutes = clock.getMinutes();
+const nowSeconds = clock.getSeconds();
 
 console.log(`${todayDay} ${todayMonth}/${todayDate}/${todayYear}`);
 dateEl.textContent = `${todayDay} ${todayMonth<10 ? ("0"+todayMonth) : todayMonth}/${todayDate<10 ? ('0'+todayDate) : todayDate}/${todayYear}`;
+console.log(`${nowHours}:${nowMinutes}`);
+timeEl.textContent = `${twoDigits(nowHours)}:${twoDigits(nowMinutes)}:${twoDigits(nowSeconds)}`
 
