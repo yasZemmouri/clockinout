@@ -1,1 +1,9 @@
 review the 3 functions declaration ways.
+review event listner 
+review types of equal signes
+this??
+arrays in javascript
+split method
+javascript regex
+for types in javascript
+callback

@@ -2,27 +2,11 @@
 //DOM???
 const dateEl= document.getElementById('date');
 const timeEl = document.getElementById('time');
+const buttonEl = document.getElementsByTagName('button')[0];
+const hoursEl = document.getElementById('hours');
+
 //Functions Declaration
-const getTodayDay = dayNumber =>{
-    switch(dayNumber){
-        case 0:
-            return "Sun";
-        case 1:
-            return "Mon";
-        case 2:
-            return "Tue";
-        case 3:
-            return "Wed";
-        case 4:
-            return "Thu";
-        case 5:
-            return "Fri";
-        case 6:
-            return "Sat";
-        default:
-            return "Day";
-        }
-    }
+
 const getTodayMonthLetters = monthNumber =>{
     switch(monthNumber){
         case 0:
@@ -58,22 +42,58 @@ const getTodayMonthNum = monthNumber =>{
     }
 //if number has 1 digit add 0 to the left.
 const twoDigits = number =>(number<10)?('0'+number):number;
-
 let clock= new Date();
-console.log(clock);
 
-//.getDay() returns current day of the week as a number (0-6) starting from Sunday.
-const todayDay = getTodayDay(clock.getDay());
-//.getMonth() returns current Month of as a number (0-11) starting from Jenuary.
-const todayMonth = getTodayMonthNum(clock.getMonth())
-const todayDate = clock.getDate();
-const todayYear = clock.getFullYear();
-const nowHours = clock.getHours();
-const nowMinutes = clock.getMinutes();
-const nowSeconds = clock.getSeconds();
+// console.log(clock);
 
-console.log(`${todayDay} ${todayMonth}/${todayDate}/${todayYear}`);
-dateEl.textContent = `${todayDay} ${todayMonth<10 ? ("0"+todayMonth) : todayMonth}/${todayDate<10 ? ('0'+todayDate) : todayDate}/${todayYear}`;
-console.log(`${nowHours}:${nowMinutes}`);
-timeEl.textContent = `${twoDigits(nowHours)}:${twoDigits(nowMinutes)}:${twoDigits(nowSeconds)}`
+
+
+
+// Function Declarations
+function nowTime(){
+    const clock= new Date();
+
+    const dateElements=Date().split(' ')
+    // console.log(dateElements);
+    const todayDay = dateElements[0];
+    //.getMonth() returns current Month of as a number (0-11) starting from Jenuary.
+    const todayMonth = getTodayMonthNum(clock.getMonth())
+    const todayDate = parseInt(dateElements[2]);
+    const todayYear = parseInt(dateElements[3]);
+    
+    // console.log(`${todayDay} ${todayMonth}/${todayDate}/${todayYear}`);
+    
+    const hh = clock.getHours();
+    const mm = clock.getMinutes();
+    const ss = clock.getSeconds();
+    return [todayDay, todayMonth,todayDate, todayYear, hh, mm, ss];
+}
+
+function displayTime(){
+    dateEl.textContent = `${nowTime()[0]} ${nowTime()[1]<10 ? ("0"+nowTime()[1]) : nowTime()[1]}/${nowTime()[2]<10 ? ('0'+nowTime()[2]) : nowTime()[2]}/${nowTime()[3]}`;
+    timeEl.textContent = `${twoDigits(nowTime()[4])}:${twoDigits(nowTime()[5])}:${twoDigits(nowTime()[6])}`
+}
+
+setInterval(displayTime, 1000);
+
+function buttonChange(x){
+    if(x.textContent==="Clock In") x.textContent="Clock Out";
+    else x.textContent="Clock In";
+}
+
+// nowTime();
+function clockInOut(){
+    const x = this;
+    const time = nowTime();
+    buttonChange(x);
+    const node = document.createElement('p');
+    const textnode = document.createTextNode(`${time[0]} ${time[1]<10 ? ("0"+time[1]) : time[1]}/${time[2]<10 ? ('0'+time[2]) : time[2]}/${time[3]} ${twoDigits(time[4])}:${twoDigits(time[5])}:${twoDigits(time[6])}`);
+    node.appendChild(textnode);
+    hoursEl.appendChild(node);
+
+}
+
+buttonEl.addEventListener('click', clockInOut)
+
+
 
